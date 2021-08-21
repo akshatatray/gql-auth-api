@@ -1,6 +1,13 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, ObjectType, Field } from "type-graphql";
 import { User } from "./entity/User";
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
+import { sign } from "jsonwebtoken";
+
+@ObjectType()
+class LoginResponse {
+    @Field()
+    accessToken: string
+}
 
 @Resolver()
 export class UserResolver {
@@ -12,6 +19,26 @@ export class UserResolver {
     @Query(() => [User])
     users() {
         return User.find();
+    }
+
+    @Mutation(() => LoginResponse)
+    async login(
+        @Arg("email") email: string,
+        @Arg("password") password: string,
+    ) : Promise<LoginResponse> {
+        const user = await User.findOne({where: {email}});
+        if (!user) {
+            throw new Error("Invalid Email Address or Password");
+        }
+        
+        const valid = await compare(password, user.password);
+        if (!valid) {
+            throw new Error("Invalid Email Address or Password");
+        }
+
+        return {
+            accessToken: sign({ userId: user.id }, "pegqlrn1024", { expiresIn: "15m" })
+        };
     }
 
     @Mutation(() => Boolean)
