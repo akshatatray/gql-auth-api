@@ -1,7 +1,8 @@
-import { Resolver, Query, Mutation, Arg, ObjectType, Field } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, ObjectType, Field, Ctx } from "type-graphql";
 import { User } from "./entity/User";
 import { compare, hash } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { MyContext } from "./MyContext";
+import { createAccessToken, createRefreshToken } from "./Auth";
 
 @ObjectType()
 class LoginResponse {
@@ -25,6 +26,7 @@ export class UserResolver {
     async login(
         @Arg("email") email: string,
         @Arg("password") password: string,
+        @Ctx() { res } : MyContext
     ) : Promise<LoginResponse> {
         const user = await User.findOne({where: {email}});
         if (!user) {
@@ -36,8 +38,16 @@ export class UserResolver {
             throw new Error("Invalid Email Address or Password");
         }
 
+        res.cookie(
+            "jid", 
+            createRefreshToken(user),
+            {
+                httpOnly: true
+            }
+        )
+
         return {
-            accessToken: sign({ userId: user.id }, "pegqlrn1024", { expiresIn: "15m" })
+            accessToken: createAccessToken(user)
         };
     }
 
