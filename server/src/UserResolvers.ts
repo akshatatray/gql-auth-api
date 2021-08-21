@@ -4,6 +4,7 @@ import { compare, hash } from "bcryptjs";
 import { MyContext } from "./MyContext";
 import { createAccessToken, createRefreshToken } from "./Auth";
 import { isAuth } from "./middleware/isAuth";
+import { sendRefreshToken } from "./middleware/sendRefreshToken";
 
 @ObjectType()
 class LoginResponse {
@@ -20,9 +21,7 @@ export class UserResolver {
     
     @Query(() => [User])
     @UseMiddleware(isAuth)
-    users(
-        @Ctx() { payload } : MyContext
-    ) {
+    users(@Ctx() { payload } : MyContext) {
         console.log(payload)
         return User.find();
     }
@@ -43,13 +42,7 @@ export class UserResolver {
             throw new Error("Invalid Email Address or Password");
         }
 
-        res.cookie(
-            "jid", 
-            createRefreshToken(user),
-            {
-                httpOnly: true
-            }
-        )
+        sendRefreshToken(res, createRefreshToken(user));
 
         return {
             accessToken: createAccessToken(user)

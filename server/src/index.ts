@@ -8,7 +8,8 @@ import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import { User } from "./entity/User";
-import { createAccessToken } from "./Auth";
+import { createAccessToken, createRefreshToken } from "./Auth";
+import { sendRefreshToken } from "./middleware/sendRefreshToken";
 
 (async () => {
     const app = express();
@@ -33,6 +34,8 @@ import { createAccessToken } from "./Auth";
             return res.send({ ok: false, accessToken: "" });
         }
 
+        sendRefreshToken(res, createRefreshToken(user));
+        
         return res.send({ ok: false, accessToken: createAccessToken(user) });
     });
 
