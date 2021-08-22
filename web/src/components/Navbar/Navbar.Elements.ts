@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Nav = styled.nav<{ navScroll: boolean }>`
-    background-color: ${({ navScroll }) => (navScroll ? "#4B38D3" : "transparent")};
+export const Nav = styled.nav<{ navscroll: boolean }>`
+    background-color: ${({ navscroll }) => (navscroll ? "#4B38D3" : "transparent")};
     height: 4.5rem;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ export const Nav = styled.nav<{ navScroll: boolean }>`
     font-size: 1rem;
     position: sticky;
     top: 0;
-    box-shadow: ${({ navScroll }) => (navScroll ? "0 5px 20px -5px rgb(0 0 0 / 10%)" : "none")};
+    box-shadow: ${({ navscroll }) => (navscroll ? "0 5px 20px -5px rgb(0 0 0 / 10%)" : "none")};
     z-index: 10;
     transition:  .4s all ease;
 
@@ -29,8 +29,8 @@ export const NavbarContainer = styled.div`
     max-width: 1200px;
 `;
 
-export const NavLogo = styled.a<{ navScroll: boolean }>`
-    color: ${({ navScroll }) => (navScroll ? "#FFFFFF" : "#4B38D3")};
+export const NavLogo = styled.a<{ navscroll: boolean }>`
+    color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     justify-content: flex-start;
     cursor: pointer;
     width: 130px;
@@ -75,8 +75,8 @@ export const NavItem = styled.li`
     height: 4.5rem;
 `;
 
-export const NavLink = styled(Link)<{ navScroll: boolean }>`
-    color: ${({ navScroll }) => (navScroll ? "#FFFFFF" : "#4B38D3")};
+export const NavLink = styled(Link)<{ navscroll: boolean }>`
+    color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -85,7 +85,7 @@ export const NavLink = styled(Link)<{ navScroll: boolean }>`
     cursor: pointer;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
-    font-weight: ${({ navScroll }) => (navScroll ? "400" : "500")};
+    font-weight: ${({ navscroll }) => (navscroll ? "400" : "500")};
     transition:  0.1s all ease;
 
     &.active {
@@ -102,22 +102,22 @@ export const NavBtn = styled.nav`
     }
 `;
 
-export const NavBtnLink = styled(Link)<{ navScroll: boolean }>`
+export const NavBtnLink = styled(Link)<{ navscroll: boolean }>`
     border-radius: 0.25rem;
     white-space: nowrap;
     padding: 0.45rem 1.25rem;
-    color: ${({ navScroll }) => (navScroll ? "#FFFFFF" : "#4B38D3")};
+    color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     font-size: .9rem;
     font-weight: bold;
     outline: none;
-    border: ${({ navScroll }) => (navScroll ? "0.125rem solid #FFFFFF" : "0.125rem solid #4B38D3")};
+    border: ${({ navscroll }) => (navscroll ? "0.125rem solid #FFFFFF" : "0.125rem solid #4B38D3")};
     cursor: pointer;
     transition:  0.1s all ease;
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
 
     &:hover {
-        color: ${({ navScroll }) => (navScroll ? "#4B38D3" : "#FFFFFF")};
-        background-color: ${({ navScroll }) => (navScroll ? "#FFFFFF" : "#4B38D3")};
+        color: ${({ navscroll }) => (navscroll ? "#4B38D3" : "#FFFFFF")};
+        background-color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     }
 `;
