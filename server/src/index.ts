@@ -6,6 +6,7 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./userResolvers";
 import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { verify } from "jsonwebtoken";
 import { User } from "./entity/User";
 import { createAccessToken, createRefreshToken } from "./Auth";
@@ -13,6 +14,12 @@ import { sendRefreshToken } from "./middleware/sendRefreshToken";
 
 (async () => {
     const app = express();
+    app.use(
+        cors({
+            origin: "http://localhost:3000", // https://studio.apollographql.com
+            credentials: true,
+        })
+    );
     app.use(cookieParser());
     app.get("/", (_req, res) => res.send("Hello World!"));
 
@@ -48,9 +55,9 @@ import { sendRefreshToken } from "./middleware/sendRefreshToken";
         context: ({req, res}) => ({ req, res })
     });
 
-    await apolloServer.start()
+    await apolloServer.start();
 
-    apolloServer.applyMiddleware({ app });
+    apolloServer.applyMiddleware({ app, cors: false });
 
     app.listen(4000, () => {
         console.log("App is running on port 4000");
