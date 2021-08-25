@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Nav = styled.nav<{ navscroll: boolean }>`
+export const Nav = styled.nav<{ navscroll: number }>`
     background-color: ${({ navscroll }) => (navscroll ? "#4B38D3" : "transparent")};
     height: 4.5rem;
     display: flex;
@@ -29,7 +29,7 @@ export const NavbarContainer = styled.div`
     max-width: 1200px;
 `;
 
-export const NavLogo = styled.a<{ navscroll: boolean }>`
+export const NavLogo = styled.a<{ navscroll: number }>`
     color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     justify-content: flex-start;
     cursor: pointer;
@@ -75,7 +75,7 @@ export const NavItem = styled.li`
     height: 4.5rem;
 `;
 
-export const NavLink = styled(Link)<{ navscroll: boolean }>`
+export const NavLink = styled(Link)<{ navscroll: number }>`
     color: ${({ navscroll }) => (navscroll ? "#FFFFFF" : "#4B38D3")};
     display: flex;
     align-items: center;
@@ -102,7 +102,7 @@ export const NavBtn = styled.nav`
     }
 `;
 
-export const NavBtnLink = styled(Link)<{ navscroll: boolean }>`
+export const NavBtnLink = styled(Link)<{ navscroll: number }>`
     border-radius: 0.25rem;
     white-space: nowrap;
     padding: 0.45rem 1.25rem;

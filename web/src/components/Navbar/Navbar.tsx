@@ -32,9 +32,9 @@ const Navbar : React.FC<NavbarProps> = ({ toggleNav }) => {
 
     return (
         <>
-            <Nav navscroll={navscroll}>
+            <Nav navscroll={navscroll ? 1 : 0}>
                 <NavbarContainer>
-                    <NavLogo navscroll={navscroll}>
+                    <NavLogo navscroll={navscroll ? 1 : 0}>
                         <LogoB alt="logo" src={navscroll ? logoWhite : logoBlue} />
                     </NavLogo>
                     <MobileIcn onClick={toggleNav}>
@@ -42,20 +42,20 @@ const Navbar : React.FC<NavbarProps> = ({ toggleNav }) => {
                     </MobileIcn>
                     <NavMenu>
                         <NavItem>
-                            <NavLink navscroll={navscroll} to="/product">Product</NavLink>
+                            <NavLink navscroll={navscroll ? 1 : 0} to="/product">Product</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink navscroll={navscroll} to="/learn">Learn</NavLink>
+                            <NavLink navscroll={navscroll ? 1 : 0} to="/learn">Learn</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink navscroll={navscroll} to="/download">Download</NavLink>
+                            <NavLink navscroll={navscroll ? 1 : 0} to="/download">Download</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink navscroll={navscroll} to="/register">Register</NavLink>
+                            <NavLink navscroll={navscroll ? 1 : 0} to="/register">Register</NavLink>
                         </NavItem>
                     </NavMenu>
                     <NavBtn>
-                        <NavBtnLink navscroll={navscroll} to="/login">LOG IN</NavBtnLink>
+                        <NavBtnLink navscroll={navscroll ? 1 : 0} to="/login">LOG IN</NavBtnLink>
                     </NavBtn>
                 </NavbarContainer>
             </Nav>
