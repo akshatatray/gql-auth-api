@@ -4,7 +4,9 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useUsersQuery } from "../../generated/graphql";
 
 const Home : React.FC = () => {
-    const {loading, error, data} = useUsersQuery();
+    const {loading, error, data} = useUsersQuery({
+        fetchPolicy: "network-only",
+    });
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleNav = () => {
