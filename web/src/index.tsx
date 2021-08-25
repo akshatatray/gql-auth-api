@@ -1,6 +1,8 @@
+import React from "react";
 import ReactDOM from "react-dom";
 import { getAccessToken, setAccessToken } from "./accessToken";
 import App from "./App";
+import "./index.css";
 import { ApolloProvider, 
   ApolloClient, 
   InMemoryCache, 
@@ -95,7 +97,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </ApolloProvider>,
   document.getElementById("root")
 );

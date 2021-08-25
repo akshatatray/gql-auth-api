@@ -37,17 +37,25 @@ const Home : React.FC = () => {
         <div>
             <Navbar toggleNav={toggleNav}/>
             <MobileNavbar isOpen={isOpen} toggleNav={toggleNav}/>
-            <ul>
-                {
-                    data.users.map((user) => {
-                        return (
-                            <li key={user.id}>
-                                {user.id}: {user.email}
-                            </li>
-                        );
-                    })
-                }
-            </ul>
+            <div style={{
+                width: "100%",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+                <ul>
+                    {
+                        data.users.map((user) => {
+                            return (
+                                <li key={user.id}>
+                                    {user.id}: {user.email}
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </div>
         </div>
     )
 }

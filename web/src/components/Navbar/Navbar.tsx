@@ -23,7 +23,7 @@ const Navbar : React.FC<NavbarProps> = ({ toggleNav }) => {
     const [navscroll, setNavscroll] = useState(false);
 
     const handleNavscroll = () => {
-        (window.scrollY >= 72) ? setNavscroll(true) : setNavscroll(false);
+        (window.scrollY >= 54) ? setNavscroll(true) : setNavscroll(false);
     }
 
     useEffect (() => {
