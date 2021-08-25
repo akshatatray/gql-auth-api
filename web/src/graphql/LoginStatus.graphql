@@ -1,0 +1,6 @@
+query LoginStatus {
+    loginStatus {
+        id,
+        email
+    }
+}
