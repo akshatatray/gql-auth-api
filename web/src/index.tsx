@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 import './index.css';
 import App from './App';
+import { getAccessToken } from './accessToken';
+import { ApolloProviderProps } from '@apollo/client/react/context';
 
-const client = new ApolloClient({
+const client : any = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   credentials: "include",
-  cache: new InMemoryCache()
+  request: (operation) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      operation.setContext({
+        headers: {
+          authorization: `bearer ${accessToken}`,
+        }
+      })
+    }
+  }
+  // cache: new InMemoryCache()
 });
 
 ReactDOM.render(
