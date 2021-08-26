@@ -16,8 +16,6 @@ const Home : React.FC = () => {
     if (loading) {
         return (
             <div>
-                <Navbar toggleNav={toggleNav} />
-                <MobileNavbar isOpen={isOpen} toggleNav={toggleNav} />
                 <div>Loading...</div>
             </div>
         );
@@ -26,8 +24,6 @@ const Home : React.FC = () => {
     if (error || !data) {
         return (
             <div>
-                <Navbar toggleNav={toggleNav} />
-                <MobileNavbar isOpen={isOpen} toggleNav={toggleNav} />
                 <div>{JSON.stringify(error)}</div>
             </div>
         );
@@ -35,8 +31,6 @@ const Home : React.FC = () => {
 
     return (
         <div>
-            <Navbar toggleNav={toggleNav}/>
-            <MobileNavbar isOpen={isOpen} toggleNav={toggleNav}/>
             <div style={{
                 width: "100%",
                 height: "100vh",

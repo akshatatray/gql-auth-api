@@ -33,6 +33,7 @@ const Login : React.FC<RouteComponentProps> = ({ history }) => {
                     if (accessToken) {
                         setAccessToken(accessToken);
                     }
+                    history.push("/");
                 }}
             >
                 <input 
