@@ -98,9 +98,13 @@ const Navbar : React.FC<NavbarProps> = ({ toggleNav }) => {
                             navscroll={navscroll ? 1 : 0} 
                             to="/" 
                             onClick={async () => {
-                                await logout();
-                                setAccessToken("");
-                                await client!.resetStore();
+                                try {
+                                    await logout();
+                                    setAccessToken("");
+                                    await client!.resetStore();
+                                } catch (error) {
+                                    console.log(error);
+                                }
                             }}
                         >
                             LOG OUT
