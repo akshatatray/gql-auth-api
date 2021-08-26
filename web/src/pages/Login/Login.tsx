@@ -14,26 +14,31 @@ const Login : React.FC<RouteComponentProps> = ({ history }) => {
             <form
                 onSubmit={async (e) => {
                     e.preventDefault();
-                    const res = await login({
-                        variables: {
-                            registerEmail: email,
-                            registerPassword: password,
-                        },
-                        update: (store, {data}) => {
-                            if (!data) {
-                                return null;
+                    try {
+                        const res = await login({
+                            variables: {
+                                registerEmail: email,
+                                registerPassword: password,
+                            },
+                            update: (store, {data}) => {
+                                if (!data) {
+                                    return null;
+                                }
+                                store.writeQuery<LoginStatusQuery>({
+                                    query: LoginStatusDocument,
+                                    data: { loginStatus: data.login.user },
+                                })
                             }
-                            store.writeQuery<LoginStatusQuery>({
-                                query: LoginStatusDocument,
-                                data: { loginStatus: data.login.user },
-                            })
+                        });
+                        const { data: { login: { accessToken }}} = res as any;
+                        if (accessToken) {
+                            setAccessToken(accessToken);
                         }
-                    });
-                    const { data: { login: { accessToken }}} = res as any;
-                    if (accessToken) {
-                        setAccessToken(accessToken);
+                        // history.push("/");
+                        window.location.replace("/");
+                    } catch (error) {
+                        console.log(error);
                     }
-                    history.push("/");
                 }}
             >
                 <input 

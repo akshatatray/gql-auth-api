@@ -42,7 +42,7 @@ const Navbar : React.FC<NavbarProps> = ({ toggleNav }) => {
         return (
             <Nav navscroll={navscroll ? 1 : 0}>
                 <NavbarContainer>
-                    <NavLogo navscroll={navscroll ? 1 : 0}>
+                    <NavLogo href="/" navscroll={navscroll ? 1 : 0}>
                         <LogoB alt="logo" src={navscroll ? logoWhite : logoBlue} />
                     </NavLogo>
                     <MobileIcn onClick={toggleNav}>
