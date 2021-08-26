@@ -10,7 +10,7 @@ export const Nav = styled.nav<{ navscroll: number }>`
     font-size: 1rem;
     position: sticky;
     top: 0;
-    box-shadow: ${({ navscroll }) => (navscroll ? "0 5px 20px -5px rgb(0 0 0 / 10%)" : "none")};
+    box-shadow: 0 5px 20px -5px rgb(0 0 0 / 10%);
     z-index: 10;
     transition:  .4s all ease;
 

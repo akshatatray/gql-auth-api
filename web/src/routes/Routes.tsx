@@ -1,28 +1,47 @@
 import React, { useState } from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import MobileNavbar from "../components/Navbar/MobileNavbar";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
-import Private from "./Private";
-import Public from "./Public";
+import { useLoginStatusQuery } from "../generated/graphql";
 
 const Routes : React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { loading, data, error } = useLoginStatusQuery({ fetchPolicy: "network-only" });
 
     const toggleNav = () => {
         setIsOpen(!isOpen);
     }
-    return (
-        <Router>
-            <Navbar toggleNav={toggleNav} />
-            <MobileNavbar isOpen={isOpen} toggleNav={toggleNav} />
-            <Public path="/login" exact component={Login} />
-            <Public path="/register" exact component={Register} />
-            <Private path="/" exact component={Home} />
-        </Router>
-    )
+
+    if (loading) {
+        return null;
+    } else if (!loading && (data && !data.loginStatus)) {
+        return  (
+            <Router>
+                <Navbar toggleNav={toggleNav} />
+                <MobileNavbar isOpen={isOpen} toggleNav={toggleNav} />
+                <Switch>    
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/register" exact component={Register} />
+                    <Route path="*" component={Login} />
+                </Switch>
+            </Router>
+        );
+    } else {
+        return (
+            <Router>
+                <Navbar toggleNav={toggleNav} />
+                <MobileNavbar isOpen={isOpen} toggleNav={toggleNav} />
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/home" exact component={Home} />
+                    <Route path="*" component={Home} />
+                </Switch>
+            </Router>
+        );
+    }
 }
 
 export default Routes;

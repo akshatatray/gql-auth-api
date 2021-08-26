@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useUsersQuery } from "../../generated/graphql";
 
 const Home : React.FC = () => {

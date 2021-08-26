@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { setAccessToken } from "../../accessToken";
 import { LoginStatusDocument, LoginStatusQuery, useLoginMutation } from "../../generated/graphql";
+import {
+    LoginContainer,
+    FormContainer,
+    DesignContainer,
+    FormWrapper,
+    FormHead,
+    LoginForm,
+    LoginBtn,
+    FormSubHead,
+    FormInput,
+    FormForgot,
+    FormLabel,
+    FormRegister
+} from "./Login.Elements";
 
 const Login : React.FC<RouteComponentProps> = ({ history }) => {
     const [email, setEmail] = useState("");
@@ -9,62 +23,82 @@ const Login : React.FC<RouteComponentProps> = ({ history }) => {
     const [login] = useLoginMutation();
 
     return (
-        <div>
-            Login!
-            <form
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                    try {
-                        const res = await login({
-                            variables: {
-                                registerEmail: email,
-                                registerPassword: password,
-                            },
-                            update: (store, {data}) => {
-                                if (!data) {
-                                    return null;
+        <LoginContainer>
+            <DesignContainer></DesignContainer>
+            <FormContainer>
+                <FormWrapper>
+                    <FormHead>
+                        Login
+                    </FormHead>
+                    <FormSubHead>
+                        Make new friends everyday!
+                    </FormSubHead>
+                    <LoginForm
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            try {
+                                const res = await login({
+                                    variables: {
+                                        registerEmail: email,
+                                        registerPassword: password,
+                                    },
+                                    update: (store, {data}) => {
+                                        if (!data) {
+                                            return null;
+                                        }
+                                        store.writeQuery<LoginStatusQuery>({
+                                            query: LoginStatusDocument,
+                                            data: { loginStatus: data.login.user },
+                                        })
+                                    }
+                                });
+                                const { data: { login: { accessToken }}} = res as any;
+                                if (accessToken) {
+                                    setAccessToken(accessToken);
                                 }
-                                store.writeQuery<LoginStatusQuery>({
-                                    query: LoginStatusDocument,
-                                    data: { loginStatus: data.login.user },
-                                })
+                                window.location.replace("/");
+                            } catch (error) {
+                                console.log(error);
                             }
-                        });
-                        const { data: { login: { accessToken }}} = res as any;
-                        if (accessToken) {
-                            setAccessToken(accessToken);
-                        }
-                        // history.push("/");
-                        window.location.replace("/");
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }}
-            >
-                <input 
-                    type="email" 
-                    className="emailInput" 
-                    value={email}
-                    onChange={
-                        (e) => setEmail(e.target.value)
-                    }
-                />
-                <input 
-                    type="password" 
-                    className="emailInput" 
-                    value={password}
-                    onChange={
-                        (e) => setPassword(e.target.value)
-                    }
-                />
-                <button 
-                    className="LoginBtn"
-                    type="submit"
-                >
-                    Login
-                </button>
-            </form>
-        </div>
+                        }}
+                    >
+                        <FormLabel>
+                            Email
+                        </FormLabel>
+                        <FormInput 
+                            type="email" 
+                            value={email}
+                            placeholder="deepika@biffled.com"
+                            onChange={
+                                (e) => setEmail(e.target.value)
+                            }
+                        />
+                        <FormLabel>
+                            Password
+                        </FormLabel>
+                        <FormInput 
+                            type="password" 
+                            value={password}
+                            placeholder="Min. 6 characters"
+                            onChange={
+                                (e) => setPassword(e.target.value)
+                            }
+                        />
+                        <LoginBtn 
+                            type="submit"
+                        >
+                            LOGIN
+                        </LoginBtn>
+                    </LoginForm>
+                    <FormForgot>
+                        Forgot Password?
+                    </FormForgot>
+                    <FormRegister href="/register">
+                        Not registered yet? <span style={{color: "#4B38D3"}}>Create an Account</span>
+                    </FormRegister>
+                </FormWrapper>
+            </FormContainer>
+        </LoginContainer>
     )
 }
 
