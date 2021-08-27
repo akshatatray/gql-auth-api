@@ -14,17 +14,17 @@ import {
     FormInput,
     FormForgot,
     FormLabel,
-    FormRegister
+    FormRegister,
 } from "./Login.Elements";
 
-const Login : React.FC<RouteComponentProps> = ({ history }) => {
+const Login : React.FC<RouteComponentProps> = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [login] = useLoginMutation();
 
     return (
         <LoginContainer>
-            <DesignContainer></DesignContainer>
+            <DesignContainer/>
             <FormContainer>
                 <FormWrapper>
                     <FormHead>
@@ -93,7 +93,7 @@ const Login : React.FC<RouteComponentProps> = ({ history }) => {
                     <FormForgot>
                         Forgot Password?
                     </FormForgot>
-                    <FormRegister href="/register">
+                    <FormRegister to="/register">
                         Not registered yet? <span style={{color: "#4B38D3"}}>Create an Account</span>
                     </FormRegister>
                 </FormWrapper>

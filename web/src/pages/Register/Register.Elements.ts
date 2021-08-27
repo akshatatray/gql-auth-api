@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
     width: 100%;
     height: calc(100vh - 72px);
     display: flex;
@@ -55,7 +55,7 @@ export const FormSubHead = styled.p`
     margin: 0 0 1.5rem 0;
 `;
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
     width: calc(100% - 3rem);
     height: calc(100% - 3rem);
     display: flex;
@@ -81,28 +81,19 @@ export const FormInput = styled.input`
     font-family: 'Poppins', sans-serif;
 `;
 
-export const LoginBtn = styled.button`
+export const RegisterBtn = styled.button`
     width: 100%;
     height: 2.75rem;
     border-radius: 0.35rem;
     border: none;
     background-color: #4B38D3;
-    color: white;
     cursor: pointer;
+    color: white;
     font-size: 1rem;
     font-weight: 500;
     margin: 0 0 1.5rem 0;
     padding: .5rem .75rem;
     font-family: 'Poppins', sans-serif;
-`;
-
-export const FormForgot = styled.p`
-    font-size: .9rem;
-    font-family: 'Montserrat', sans-serif;
-    color: #4B38D3;
-    cursor: pointer;
-    width: calc(100% - 3rem);
-    margin: 0 0 1.5rem 0;
 `;
 
 export const FormRegister = styled(Link)`
